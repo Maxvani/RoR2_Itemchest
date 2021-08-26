@@ -11,26 +11,26 @@ namespace Itemchest.Items
     {
         [AutoConfigUpdateActions(AutoConfigUpdateActionTypes.InvalidateLanguage)]
         [AutoConfig("In percentage, amount of maximum HP granted per Utility item you possess, for first stack of the item. Default: .01 = 1%", AutoConfigFlags.PreventNetMismatch, 0f, float.MaxValue)]
-        public float baseStackHPPercent { get; private set; } = .1f;
+        public float baseHPPercent { get; private set; } = .1f;
 
         [AutoConfigUpdateActions(AutoConfigUpdateActionTypes.InvalidateLanguage)]
         [AutoConfig("In percentage, amount of maximum HP granted per Utility item you possess, for additional stacks of item. Default: .01 = 1%", AutoConfigFlags.PreventNetMismatch, 0f, float.MaxValue)]
-        public float addStackHPPercent { get; private set; } = .05f;
+        public float stackHPPercent { get; private set; } = .05f;
 
         [AutoConfigUpdateActions(AutoConfigUpdateActionTypes.InvalidateLanguage)]
         [AutoConfig("In percentage, amount of attack speed granted per Utility item you possess, for first stack of the item. Default: .01 = 1%", AutoConfigFlags.PreventNetMismatch, 0f, float.MaxValue)]
-        public float baseStackAttackSpeedPercent { get; private set; } = .1f;
+        public float baseAttackSpeedPercent { get; private set; } = .1f;
 
         [AutoConfigUpdateActions(AutoConfigUpdateActionTypes.InvalidateLanguage)]
         [AutoConfig("In percentage, amount of attack speed granted per Utility item you possess, for additional stacks of item. Default: .01 = 1%", AutoConfigFlags.PreventNetMismatch, 0f, float.MaxValue)]
-        public float addStackAttackSpeedPercent { get; private set; } = .05f;
+        public float stackAttackSpeedPercent { get; private set; } = .05f;
 
         public override string displayName => "Hybrid Engine";
         public override ItemTier itemTier => ItemTier.Tier1;
         public override ReadOnlyCollection<ItemTag> itemTags => new ReadOnlyCollection<ItemTag>(new[] { ItemTag.Utility });
         protected override string GetNameString(string langid = null) => displayName;
         protected override string GetPickupString(string langID = null) => "Gain base HP and attack speed";
-        protected override string GetDescString(string langID = null) => $"Gives you <style=cIsUtility>{baseStackHPPercent * 100}%</style> <style=cStack>(+{addStackHPPercent * 100}% per stack)</style> base health and <style=cIsUtility>{baseStackAttackSpeedPercent * 100}%</style> <style=cStack>(+{addStackAttackSpeedPercent}% per stack)</style> attack speed";
+        protected override string GetDescString(string langID = null) => $"Gives you <style=cIsUtility>{baseHPPercent * 100}%</style> <style=cStack>(+{stackHPPercent * 100}% per stack)</style> base health and <style=cIsUtility>{baseAttackSpeedPercent * 100}%</style> <style=cStack>(+{stackAttackSpeedPercent}% per stack)</style> attack speed";
         protected override string GetLoreString(string landID = null) => "An engine ripped from a vehicle in the near future...";
 
         public HybridEngine()
@@ -62,8 +62,8 @@ namespace Itemchest.Items
             var inventoryCount = GetCount(sender);
             if (GetCount(sender) > 0)
             {
-                args.healthMultAdd += baseStackHPPercent + ((inventoryCount - 1) * addStackHPPercent);
-                args.attackSpeedMultAdd += baseStackAttackSpeedPercent + ((inventoryCount - 1) * addStackAttackSpeedPercent);
+                args.healthMultAdd += baseHPPercent + ((inventoryCount - 1) * stackHPPercent);
+                args.attackSpeedMultAdd += baseAttackSpeedPercent + ((inventoryCount - 1) * stackAttackSpeedPercent);
             }
         }
     }
