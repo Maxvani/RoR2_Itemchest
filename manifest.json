@@ -1,7 +1,7 @@
 ﻿{
 	"name": "Itemchest",
 	"version_number": "0.0.1",
-	"website_url": "",
+	"website_url": "https://github.com/Maxvani/RoR2_Itemchest",
 	"description": "Adds a bunch of items to the game!",
 	"dependencies": [
 		"bbepis-BepInExPack-5.4.9",
